@@ -4,18 +4,23 @@ const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
 const get = () => {
-    axios.get('https://jsonplaceholder.typicode.com/posts', {
+    const config = {
         params: {
             _limit: 5
         }
-    })
-        .then((response) => {
-            renderOutput(response)
-        })
+    };
+    axios.get('https://jsonplaceholder.typicode.com/posts', config)
+        .then((response) => renderOutput(response))
 }
 
 const post = () => {
-    console.log('post');
+    const data = {
+        title: 'LaraVue',
+        body: 'bar',
+        userId: 1,
+    };
+    axios.post('https://jsonplaceholder.typicode.com/posts', data)
+        .then((response) => renderOutput(response))
 }
 
 const put = () => {
