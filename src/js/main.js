@@ -24,11 +24,21 @@ const post = () => {
 }
 
 const put = () => {
-    console.log('put');
+    const data = {
+        title: 'LaraVue',
+        body: 'bar',
+        userId: 1,
+    };
+    axios.put('https://jsonplaceholder.typicode.com/posts/1', data)
+        .then((response) => renderOutput(response))
 }
 
 const patch = () => {
-    console.log('patch');
+    const data = {
+        title: 'LaraVue',
+    };
+    axios.put('https://jsonplaceholder.typicode.com/posts/1', data)
+        .then((response) => renderOutput(response))
 }
 
 const del = () => {
