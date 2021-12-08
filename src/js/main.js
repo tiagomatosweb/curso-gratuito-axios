@@ -3,6 +3,9 @@ const dataEl = document.getElementById('data');
 const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 axios.interceptors.request.use(function(config) {
     config.headers.common.Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
     return config;
@@ -25,7 +28,7 @@ const get = () => {
             _limit: 5
         }
     };
-    axios.get('https://jsonplaceholder.typicode.com/postsz', config)
+    axios.get('posts', config)
         .then((response) => renderOutput(response))
 }
 
@@ -35,7 +38,7 @@ const post = () => {
         body: 'bar',
         userId: 1,
     };
-    axios.post('https://jsonplaceholder.typicode.com/posts', data)
+    axios.post('posts', data)
         .then((response) => renderOutput(response))
 }
 
@@ -45,7 +48,7 @@ const put = () => {
         body: 'bar',
         userId: 1,
     };
-    axios.put('https://jsonplaceholder.typicode.com/posts/1', data)
+    axios.put('posts/1', data)
         .then((response) => renderOutput(response))
 }
 
@@ -53,19 +56,19 @@ const patch = () => {
     const data = {
         title: 'LaraVue',
     };
-    axios.put('https://jsonplaceholder.typicode.com/posts/1', data)
+    axios.put('posts/1', data)
         .then((response) => renderOutput(response))
 }
 
 const del = () => {
-    axios.delete('https://jsonplaceholder.typicode.com/posts/2', data)
+    axios.delete('posts/2', data)
         .then((response) => renderOutput(response))
 }
 
 const multiple = () => {
     Promise.all([
-        axios.get('https://jsonplaceholder.typicode.com/posts?limit=5'),
-        axios.get('https://jsonplaceholder.typicode.com/users?limit=5')
+        axios.get('posts?limit=5'),
+        axios.get('users?limit=5')
     ]).then((response) => {
         console.table(response[0].data);
         console.table(response[1].data);
@@ -90,12 +93,12 @@ const transform = () => {
             return payload;
         }],
     };
-    axios.get('https://jsonplaceholder.typicode.com/posts', config)
+    axios.get('posts', config)
         .then((response) => renderOutput(response));
 }
 
 const errorHandling = () => {
-    axios.get('https://jsonplaceholder.typicode.com/postsz')
+    axios.get('postsz')
         .then((response) => renderOutput(response))
         .catch((error) => renderOutput(error.response));
 }
@@ -108,7 +111,7 @@ const cancel = () => {
         },
         signal: controller.signal
     };
-    axios.get('https://jsonplaceholder.typicode.com/posts', config)
+    axios.get('posts', config)
         .then((response) => renderOutput(response))
         .catch((e) => {
             console.log(e.message);
