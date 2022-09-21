@@ -4,7 +4,14 @@ const headersEl = document.getElementById('headers');
 const configEl = document.getElementById('config');
 
 const get = () => {
-    console.log('get');
+    const config = { 
+        params: { 
+            _limit: 5 
+        }
+    }
+    axios.get ('https://jsonplaceholder.typicode.com/posts', config)
+    .then((response) => renderOutput(response))
+//    console.log('get');
 }
 
 const post = () => {
